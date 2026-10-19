@@ -1,0 +1,14 @@
+# systemd service that caps battery charging at __LIMIT__%.
+# Template: deploy/install-charge-limit.sh substitutes __LIMIT__ and installs it.
+# Also installed into the sleep targets because the kernel may reset the attribute.
+
+[Unit]
+Description=Cap battery charging at __LIMIT__%
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/charge-limit
+
+[Install]
+WantedBy=multi-user.target suspend.target hibernate.target hybrid-sleep.target

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.log
+
+# Local secrets and state - never commit
+config.toml
+*.local.toml
+.env
+.env.*
+state/
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-wal
+*.sqlite-shm
+
+# Editor and OS files
+.DS_Store
+*.swp
+*~
+
+# Workflow and agent state - kept on disk, not part of the project
+.atl/
+odd/

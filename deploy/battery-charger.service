@@ -1,0 +1,27 @@
+# systemd user unit for the automatic battery charger.
+# Template: deploy/install.sh substitutes __PROJECT_DIR__ and __ABC__.
+# ExecStopPost returns the plug to OFF when the unit stops; the leading '-'
+# keeps a failed watchdog write from disabling Restart=on-failure.
+
+[Unit]
+Description=Automatic battery charger (local Tuya plug control)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=__PROJECT_DIR__
+ExecStart=__ABC__ run
+# Return the plug to OFF whenever the service stops, for any reason. A failing
+# write must not stop the service from being restarted.
+ExecStopPost=-__ABC__ off
+Restart=on-failure
+RestartSec=30
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+# The plug powers this machine's charger: keep the stop timeout short.
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target
